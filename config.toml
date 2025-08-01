@@ -1,0 +1,24 @@
+# Go Book API Configuration
+
+[server]
+port = "8080"
+host = "localhost"
+
+[database]
+host = "localhost"
+port = "3306"
+name = "book_db"
+user = "root"
+password = "1234"
+charset = "utf8mb4"
+parse_time = true
+loc = "Local"
+
+[jwt]
+secret = "your-secret-key-change-this-in-production"
+expiration = 24
+
+[app]
+mode = "development"
+name = "Go Book API"
+version = "1.0.0"
