@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_NAME=book_db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_CHARSET=utf8mb4
+      - DB_PARSE_TIME=true
+      - DB_LOC=Local
+      - JWT_SECRET=your-secret-key-change-this-in-production
+      - JWT_EXPIRATION=24
+      - APP_MODE=development
+    depends_on:
+      - mysql
+    networks:
+      - book-api-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=book_db
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=book_user
+      - MYSQL_PASSWORD=book_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - book-api-network
+
+volumes:
+  mysql_data:
+
+networks:
+  book-api-network:
+    driver: bridge 
